@@ -1,0 +1,31 @@
+.type-icon {
+  font-size: 50px;
+  float: left;
+  padding-right: 10px;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.right {
+  float: right;
+}
+
+.staff-roles {
+  border: 1px solid #eee;
+  border-radius: 6px;
+}
+
+.staff-roles .row {
+  border-bottom: 1px solid #eee;
+  padding: 6px;
+}
+
+.selected-tree-obj {
+  background-color: #eef;
+}
+
+.tree-object h4 {
+  white-space: nowrap;
+}

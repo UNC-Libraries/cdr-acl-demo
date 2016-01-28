@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="acl-tree.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script src="acl-tree.js"></script>
+  <script type="text/template" id="container_template">
+    <div class="tree-object">
+      <div class="row tree-<%= tobj.data.resourceType %>">
+        
+        <div class="col-md-11">
+          <div class="type-icon">
+            <i class="fa fa-<%= icon %>"></i> 
+          </div>
+          
+          <h4><%= tobj.data.title %></h4>
+          <% if (tobj.data.resourceType != "Unit" && tobj.data.resourceType != "Collection") { %>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="checkPrivate" <%= tobj.acls.private? "checked": "" %>> private
+              </label>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    
+      <div class="row">
+        <div class="col-md-offset-1 col-md-11 tree-children">
+        </div>
+      </div>
+    </div>
+  </script>
+  
+  <script type="text/template" id="container_settings">
+    <div>
+      <h2>Settings for <%= tobj.data.resourceType %></h2>
+      <h3><%= tobj.data.title %></h3>
+      <hr/>
+      <h3>Access for Public Items</h3>
+      <div class="radio">
+        <label>
+          <input type="radio" name="everyoneRadio" value="public_disco" <%= tobj.acls.everyone == "public_disco"? "checked": "" %>>
+          Public objects are discoverable by everyone
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="everyoneRadio" value="public_full" <%= tobj.acls.everyone == "public_full"? "checked": "" %>>
+          Public objects are fully accessible by everyone
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="everyoneRadio" value="authenticated" <%= tobj.acls.everyone == "authenticated"? "checked": "" %>>
+          Public objects are fully accessible by authenticated users
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="everyoneRadio" value="private" <%= tobj.acls.private? "checked": "" %>>
+          No public access
+        </label>
+      </div>
+    
+      <form class="add-role-form form-inline">
+        <h3>Staff Permissions</h3>
+        <div class="staff-roles">
+        </div>
+      
+        <div class="form-group">
+          <input type="text" class="form-control" name="entityName" placeholder="Enter user or group"> 
+          <select class="form-control" name="roleValue">
+            <option value="discover">can discover</option>
+            <option value="download">can download</option>
+            <option value="describe">can describe</option>
+            <option value="ingest">can ingest</option>
+            <option value="manage">can manage</option>
+          </select>
+          <input class="btn btn-default" name="addRoleButton" type="submit" value="Add">
+        </div>
+      </form>
+    </div>
+  </script>
+  
+  <script type="text/template" id="staff-roles-template">
+    <div class="container-fluid">
+      <% _.each(tobj.acls.roles, function(roleValue, entityName) { %>
+        <div class="row">
+          <div class="col-md-12">
+            <%= entityName %>
+            <div class="right nowrap">
+              <% if (roleValue == "owner") { %>
+                <span class="label label-default">is Unit Owner</span>
+              <% } else { %>
+                <select name="existingRoleValue">
+                  <option value="discover" <%= roleValue == "discover"? "selected" : "" %>>can discover</option>
+                  <option value="download" <%= roleValue == "download"? "selected" : "" %>>can download</option>
+                  <option value="describe" <%= roleValue == "describe"? "selected" : "" %>>can describe</option>
+                  <option value="ingest" <%= roleValue == "ingest"? "selected" : "" %>>can ingest</option>
+                  <option value="manage" <%= roleValue == "manage"? "selected" : "" %>>can manage</option>
+                </select>
+                <i class="fa fa-times"></i>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </script>
+  
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="col-md-12">
+      <form class="form-inline set-auth-form">
+        <div class="form-group">
+          <h3>Viewing as user <input type="text" id="auth_user" class="form-control" />
+             with groups <input type="text" id="auth_groups" class="form-control" value="everyone" /> 
+             <input type="button" id="auth_set" value="Set">
+          </h3>
+        </div>
+      </form>
+    </div>
+    <div id="settings_container" class="col-md-4">
+      Select an object to view settings
+    </div>
+    <div id="tree_view" class="col-md-8">
+      <div id="tree_root" class="container-fluid">
+        <div class="tree-children">
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

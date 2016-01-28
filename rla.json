@@ -1,0 +1,296 @@
+[{
+     "title" : "Faculty Works",
+     "resourceType" : "Unit",
+     "id" : "uuid:faculty-workers",
+     "roles" : {
+       "jrudder" : "owner"
+     },
+     "children" : [
+  {
+     "title" : "Research Laboratories of Archaeology",
+     "resourceType" : "Collection",
+     "id" : "uuid:8ae56bbc-400e-496d-af4b-3c585e20dba1",
+     "everyone" : "public_full",
+     "children" : [
+          {
+         "private" : true,
+         "resourceType": "Folder",
+         "id": "uuid:2bf238d0-5a37-40f1-b57c-d08abc4dc8f6",
+         "title": "Excavating Occaneechi Town, Web Edition [Digital Files]"
+       },
+       {
+         "resourceType": "Folder",
+         "id": "uuid:6ff85aeb-4e0e-4b99-8eca-7938c303b306",
+         "title": "Publications"
+       },
+       {
+         "private" : true,
+         "resourceType": "Folder",
+         "id": "uuid:b50a3c5c-a23f-4256-8244-71c0a7f1656d",
+         "title": "Society for American Archaeology Repatriation Archive [website]"
+       },
+       {
+         "private" : true,
+         "resourceType": "Folder",
+         "id": "uuid:e57ee518-0479-448a-90d1-fcbe43b8f33e",
+         "title": "Intrigue of the Past: North Carolina's First Peoples"
+       },
+       {
+         "resourceType": "Folder",
+         "id": "uuid:365c0edb-1374-4961-be10-5ae076200ef6",
+         "title": "Color Slides",
+         "children" : [
+       {
+         "resourceType": "Folder",
+         "id": "uuid:d7a9d484-4858-4bd1-8da4-3a8cdff96d14",
+         "title": "1001-1500"
+       },
+       {
+         "resourceType": "Folder",
+         "id": "uuid:9546ec4c-487e-44b6-a196-0967786e36df",
+         "title": "7001-7500"
+       },
+       {
+         "resourceType": "Folder",
+         "id": "uuid:1f4c18ea-71ea-40ce-b6a4-153e7c5d334a",
+         "title": "0501-1000",
+         "children" : [
+         {
+         "resourceType": "File",
+         "id": "uuid:530f4892-b45d-4a77-aa34-5ba9fb2f918f",
+         "title": "Town Creek (Mg 2), Thomas Morse In Front of Mound,Montgomery Co., North Carolina, United States (RLA image 0561.jpg)"
+       },
+       {
+         "resourceType": "File",
+         "id": "uuid:d4ebe740-ecdb-442b-92c3-8a4ae89f89fd",
+         "title": "Town Creek (Mg 3), Mound and Stockade from TownCreek, Montgomery Co., North Carolina, United States (RLA image 0562.jpg)"
+       },
+       {
+         "resourceType": "File",
+         "id": "uuid:4e4d4c3f-8fe3-46af-b4bd-8ad8c1c7276c",
+         "title": "Town Creek (Mg 3), Closer View of Mound & Stockade,Montgomery Co., North Carolina, United States (RLA image 0563.jpg)"
+       },
+       {
+         "resourceType": "File",
+         "id": "uuid:8e6ef48c-9c3c-4ccf-9dd0-e553277570df",
+         "title": "Town Creek (Mg 3), Stockade & Mound From Parking Lot,Montgomery Co., North Carolina, United States (RLA image 0564.jpg)"
+       },
+       {
+         "resourceType": "File",
+         "id": "uuid:e8866ed5-9170-41f9-af40-85e75a130fe8",
+         "title": "Town Creek (Mg 3), Stockade & Tower Entrance,Montgomery Co., North Carolina, United States (RLA image 0565.jpg)"
+       },
+       {
+         "resourceType": "File",
+         "id": "uuid:83bfcf19-5265-40a9-9dfb-4c7706d02691",
+         "title": "Town Creek (Mg 3), Stockade & Tower Entrance WithTemple, Montgomery Co., North Carolina, United States (RLA image 0566.jpg)"
+       },
+       {
+         "resourceType": "File",
+         "id": "uuid:d5009511-8a09-4f62-8e26-5fc98911a800",
+         "title": "Town Creek (Mg 3), View to North on Top of TowerGate, Montgomery Co., North Carolina, United States (RLA image 0567.jpg)"
+       },
+       {
+         "private" : true,
+         "resourceType": "File",
+         "id": "uuid:559aea95-c157-4553-9156-afcda284a577",
+         "title": "Town Creek (Mg 3), Excavating Burial 68, MontgomeryCo., North Carolina, United States (RLA image 0568.jpg)"
+       },
+       {
+         "private" : true,
+         "resourceType": "File",
+         "id": "uuid:5e83b6cb-ace6-44ed-bf2a-b41ed2a8ccf7",
+         "title": "Town Creek (Mg 3), Excavating Burial 68, MontgomeryCo., North Carolina, United States (RLA image 0569.jpg)"
+       },
+       {
+         "resourceType": "File",
+         "id": "uuid:177d38bc-0f28-4664-80b3-3c34c59432cb",
+         "title": "Town Creek (Mg 3), Pit 1, Sq. 20L80, Montgomery Co.,North Carolina, United States (RLA image 0570.jpg)"
+       },
+       {
+         "resourceType": "File",
+         "id": "uuid:ada1c6ee-2e1c-40b8-8bff-8c7295bd702f",
+         "title": "Town Creek (Mg 3), Pit 2, Sq. 20L80, Ed Gaines,Montgomery Co., North Carolina, United States (RLA image 0571.jpg)"
+       },
+       {
+         "resourceType": "File",
+         "id": "uuid:aadc4a5d-41c1-4125-89b3-d0e62490a4e5",
+         "title": "Town Creek (Mg 3), Pit 2, Sq. 20L80, Montgomery Co.,North Carolina, United States (RLA image 0572.jpg)"
+       },
+       {
+         "resourceType": "File",
+         "id": "uuid:7270f006-1b2f-4eb1-bb62-4503689a9397",
+         "title": "Town Creek (Mg 3), Pit 2, Sq. 20L80, Close up of 572,Montgomery Co., North Carolina, United States (RLA image 0573.jpg)"
+       },
+       {
+         "resourceType": "File",
+         "id": "uuid:fed4d061-816b-4822-a057-b3feb8bd2144",
+         "title": "Town Creek (Mg 3), Mortars in River, Montgomery Co.,North Carolina, United States (RLA image 0574.jpg)"
+       },
+       {
+         "resourceType": "File",
+         "id": "uuid:ea8f7ea1-b424-4e53-afca-f08466ca191c",
+         "title": "Town Creek (Mg 3), Ed Gaines Cleaning Deer Skull,Montgomery Co., North Carolina, United States (RLA image 0575.jpg)"
+       },
+       {
+         "resourceType": "File",
+         "id": "uuid:21d25575-1687-4723-9d03-e1f1f6148a9e",
+         "title": "Town Creek (Mg 3), Exhibit of Charred Corncobs,Montgomery Co., North Carolina, United States (RLA image 0576.jpg)"
+       },
+       {
+         "resourceType": "File",
+         "id": "uuid:95b0e6d1-0a42-4a41-8c86-3411e71812b4",
+         "title": "C.B. Moore Plate: Copper Breast Piece, Mt. Royal,Florida, United States (RLA image 0577.jpg)"
+       },
+       {
+         "resourceType": "File",
+         "id": "uuid:3335ab5d-9bff-404c-b457-fb22b8b6445d",
+         "title": "C.B. Moore Plate: Copper Breast Piece, Mt. Royal,Florida, United States (RLA image 0578.jpg)"
+       },
+       {
+         "resourceType": "File",
+         "id": "uuid:3ee56dc3-c6ba-462a-be40-0651f1f2c775",
+         "title": "C.B. Moore Plate: Mound on St. Catherine's Island,Georgia, United States (RLA image 0579.jpg)"
+       },
+       {
+         "resourceType": "File",
+         "id": "uuid:85f406be-2317-47c9-b381-d9a176df15b8",
+         "title": "C.B. Moore Plate: Mound on Little Island, SouthCarolina, United States (RLA image 0580.jpg)"
+       }
+         ]
+       },
+       {
+         "resourceType": "Folder",
+         "id": "uuid:3282135d-8076-473c-b3cb-eddcffd47cc9",
+         "title": "9501-X0000"
+       },
+       {
+         "resourceType": "Folder",
+         "id": "uuid:f6ce6fcc-d753-4555-ab6c-1a3faac526d8",
+         "title": "X6001-X6500"
+       }
+         ]
+       },
+       {
+         "resourceType": "Folder",
+         "id": "uuid:deb77cd1-3b99-4095-abae-bb28f1de9c58",
+         "title": "Digital Images"
+       },
+       {
+         "resourceType": "Folder",
+         "id": "uuid:9e3b1754-8e39-494d-8cc4-44e0ddf264d9",
+         "title": "Black and White Photographs"
+       },
+       {
+         "private" : true,
+         "resourceType": "Folder",
+         "id": "uuid:5bb297ee-56e6-4660-a884-dbe12bcfb362",
+         "title": "Town Creek Indian Mound",
+         "children" : [
+             {
+         "resourceType": "Folder",
+         "id": "uuid:6bddf05a-060a-410d-8a4b-7fafb429be45",
+         "title": "misc_drawings"
+       },
+       {
+         "resourceType": "Folder",
+         "id": "uuid:d223dc0d-8645-4161-86c3-a5d7890fe6a4",
+         "title": "reports"
+       },
+       {
+         "resourceType": "Folder",
+         "id": "uuid:5d47209a-4d37-4b91-9657-ff94bffea8f8",
+         "title": "speciman_catalogs"
+       },
+       {
+         "resourceType": "Folder",
+         "id": "uuid:8f8b657a-4c15-40d7-930b-feb6a3e1a7e6",
+         "title": "misc_reports_and_documents"
+       },
+       {
+         "resourceType": "Folder",
+         "id": "uuid:4aa64de8-9203-4c6d-ab89-873541a5cbd5",
+         "title": "feature_records"
+       },
+       {
+         "resourceType": "Folder",
+         "id": "uuid:0b5bb10d-bcbd-465e-8102-310d40560f08",
+         "title": "correspondence"
+       },
+       {
+         "resourceType": "Folder",
+         "id": "uuid:5fc21368-fba8-46a2-9c0c-fdcbd64db2eb",
+         "title": "negative_catalogs_and_photographic_data"
+       },
+       {
+         "resourceType": "Folder",
+         "id": "uuid:78299880-e9a2-4b3f-8445-4cc15212a694",
+         "title": "burial_records",
+         "children" : [
+             {
+         "resourceType": "File",
+         "id": "uuid:86a6c18c-2bcb-417f-9a3b-e8e6ce408e25",
+         "title": "Town Creek Burial Records - Mg3"
+       },
+       {
+         "resourceType": "File",
+         "id": "uuid:e9249819-243a-4321-aca0-26b775babdc5",
+         "title": "Town Creek Burial Records - Mg3"
+       },
+       {
+         "resourceType": "File",
+         "id": "uuid:4d72f3ea-2bae-41fc-803d-c477a93cf6c0",
+         "title": "Town Creek Burial Records - Mg3"
+       },
+       {
+         "resourceType": "File",
+         "id": "uuid:bdbaa0eb-00dd-408e-a3a7-463700e18e53",
+         "title": "Town Creek Burial Records - Mg3"
+       },
+       {
+         "resourceType": "File",
+         "id": "uuid:d97d3bba-9da1-4f9d-acdb-7ff455426b75",
+         "title": "Town Creek Burial Records - Mg2"
+       },
+       {
+         "resourceType": "File",
+         "id": "uuid:363b3283-d84a-477f-8d3a-63b9d20cd9d4",
+         "title": "Town Creek Burial Records - Mg2"
+       },
+       {
+         "resourceType": "File",
+         "id": "uuid:f912b51f-8178-4b5f-8f27-b2b37651ea82",
+         "title": "Town Creek Burial Records - Mg3"
+       }
+         ]
+       },
+       {
+         "resourceType": "Folder",
+         "id": "uuid:2919efb6-9c20-4680-bd0e-a6e7d15f0b59",
+         "title": "misc_mound_excavation_records"
+       }
+         ]
+       },
+       {
+         "resourceType": "Folder",
+         "id": "uuid:f06b24e6-98bf-4a50-89ed-369d7a3162d1",
+         "title": "Digital Images of RLA Artifacts"
+       },
+       {
+         "resourceType": "Folder",
+         "id": "uuid:3faca9f7-28f3-436c-a429-2b50b6163b00",
+         "title": "North Carolina Archaeological Society Publications [Digital files]"
+       },
+       {
+         "resourceType": "Folder",
+         "id": "uuid:0bd58341-af44-4ee0-9d62-91df0b60c133",
+         "title": "Historical Narratives"
+       },
+       {
+         "resourceType": "Folder",
+         "id": "uuid:042015a9-8ce0-43ee-9fb1-fae687969290",
+         "title": "Digital Archive of the Douglas L. Rights Collection"
+       }
+     ]
+     }]
+}]
