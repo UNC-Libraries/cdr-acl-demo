@@ -10,9 +10,9 @@
   <script src="acl-tree.js"></script>
   <script type="text/template" id="container_template">
     <div class="tree-object">
-      <div class="row tree-<%= tobj.data.resourceType %>">
+      <div class="row tree-object-data tree-<%= tobj.data.resourceType %>">
         
-        <div class="col-md-11">
+        <div class="col-xs-11">
           <div class="type-icon">
             <i class="fa fa-<%= icon %>"></i> 
           </div>
@@ -25,11 +25,13 @@
               </label>
             </div>
           <% } %>
+          <div class="access-badge-box">
+          </div>
         </div>
       </div>
     
       <div class="row">
-        <div class="col-md-offset-1 col-md-11 tree-children">
+        <div class="col-xs-offset-1 col-xs-11 tree-children">
         </div>
       </div>
     </div>
@@ -40,71 +42,117 @@
       <h2>Settings for <%= tobj.data.resourceType %></h2>
       <h3><%= tobj.data.title %></h3>
       <hr/>
-      <h3>Access for Public Items</h3>
-      <div class="radio">
-        <label>
-          <input type="radio" name="everyoneRadio" value="public_disco" <%= tobj.acls.everyone == "public_disco"? "checked": "" %>>
-          Public objects are discoverable by everyone
-        </label>
-      </div>
-      <div class="radio">
-        <label>
-          <input type="radio" name="everyoneRadio" value="public_full" <%= tobj.acls.everyone == "public_full"? "checked": "" %>>
-          Public objects are fully accessible by everyone
-        </label>
-      </div>
-      <div class="radio">
-        <label>
-          <input type="radio" name="everyoneRadio" value="authenticated" <%= tobj.acls.everyone == "authenticated"? "checked": "" %>>
-          Public objects are fully accessible by authenticated users
-        </label>
-      </div>
-      <div class="radio">
-        <label>
-          <input type="radio" name="everyoneRadio" value="private" <%= tobj.acls.private? "checked": "" %>>
-          No public access
-        </label>
-      </div>
+      <% if (tobj.data.resourceType != "Unit" && tobj.data.resourceType != "Collection") { %>
+        <% if (tobj.acls.private) { %>
+          <span class="label label-primary">Marked as Private</span>
+        <% } else if (tobj.computedAcls.private) { %>
+          <span class="label label-default">Private because of parent</span>
+        <% } else { %>
+          <span class="label label-success">Public</span>
+        <% } %>
+        
+        <% if (tobj.visibility) { %>
+          <span class="label label-success">Visible to current user</span>
+        <% } else { %>
+          <span class="label label-success">Hidden from current user</span>
+        <% } %>
+      <% } %>
+      
+      <% if (canEdit && tobj.data.resourceType != "Unit") { %>
+        <h3>Access for Public Items</h3>
+        <div class="radio">
+          <label>
+            <input type="radio" name="everyoneRadio" value="public_disco" <%= tobj.acls.everyone == "public_disco"? "checked": "" %>>
+            Public objects are discoverable by everyone
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="everyoneRadio" value="public_full" <%= tobj.acls.everyone == "public_full"? "checked": "" %>>
+            Public objects are fully accessible by everyone
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="everyoneRadio" value="authenticated" <%= tobj.acls.everyone == "authenticated"? "checked": "" %>>
+            Public objects are fully accessible by authenticated users
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="everyoneRadio" value="private" <%= tobj.acls.private? "checked": "" %>>
+            No public access
+          </label>
+        </div>
+      <% } %>
     
       <form class="add-role-form form-inline">
         <h3>Staff Permissions</h3>
-        <div class="staff-roles">
-        </div>
-      
-        <div class="form-group">
-          <input type="text" class="form-control" name="entityName" placeholder="Enter user or group"> 
-          <select class="form-control" name="roleValue">
-            <option value="discover">can discover</option>
-            <option value="download">can download</option>
-            <option value="describe">can describe</option>
-            <option value="ingest">can ingest</option>
-            <option value="manage">can manage</option>
-          </select>
-          <input class="btn btn-default" name="addRoleButton" type="submit" value="Add">
+        
+        <div class="staff-roles container-fluid">
+          <div class="staff-roles-list">
+          </div>
+          
+          <% if (canEdit) { %>
+            <div class="row add-role-entry">
+              <div class="form-group col-xs-12">
+                <input type="text" class="form-control" name="entityName" placeholder="Enter user or group"> 
+                <select class="form-control" name="roleValue">
+                  <% if (tobj.data.resourceType != "Unit") { %>
+                    <option value="discover">can discover</option>
+                    <option value="download">can download</option>
+                  <% } %>
+                  <option value="describe">can describe</option>
+                  <option value="ingest">can ingest</option>
+                  <option value="manage">can manage</option>
+                  <% if (tobj.data.resourceType == "Unit") { %>
+                    <option value="owner">is Unit Owner</option>
+                  <% } %>
+                </select>
+                <input class="btn btn-primary" name="addRoleButton" type="submit" value="Add">
+              </div>
+            </div>
+          <% } %>
         </div>
       </form>
     </div>
   </script>
   
   <script type="text/template" id="staff-roles-template">
-    <div class="container-fluid">
-      <% _.each(tobj.acls.roles, function(roleValue, entityName) { %>
-        <div class="row">
-          <div class="col-md-12">
+    <div>
+      <% _.each(inheritedRoles, function(roleValue, entityName) { %>
+        <div class="row inherited">
+          <div class="col-xs-12">
             <%= entityName %>
             <div class="right nowrap">
               <% if (roleValue == "owner") { %>
                 <span class="label label-default">is Unit Owner</span>
               <% } else { %>
-                <select name="existingRoleValue">
+                <span class="label label-default">can <%= roleValue %></span>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+      
+      <% _.each(tobj.acls.roles, function(roleValue, entityName) { %>
+        <div class="row role-entry" data-name="<%= entityName %>">
+          <div class="col-xs-12">
+            <%= entityName %>
+            <div class="right nowrap">
+              <select name="existingRoleValue">
+                <% if (tobj.data.resourceType != "Unit") { %>
                   <option value="discover" <%= roleValue == "discover"? "selected" : "" %>>can discover</option>
                   <option value="download" <%= roleValue == "download"? "selected" : "" %>>can download</option>
-                  <option value="describe" <%= roleValue == "describe"? "selected" : "" %>>can describe</option>
-                  <option value="ingest" <%= roleValue == "ingest"? "selected" : "" %>>can ingest</option>
-                  <option value="manage" <%= roleValue == "manage"? "selected" : "" %>>can manage</option>
-                </select>
-                <i class="fa fa-times"></i>
-              <% } %>
+                <% } %>
+                <option value="describe" <%= roleValue == "describe"? "selected" : "" %>>can describe</option>
+                <option value="ingest" <%= roleValue == "ingest"? "selected" : "" %>>can ingest</option>
+                <option value="manage" <%= roleValue == "manage"? "selected" : "" %>>can manage</option>
+                <% if (tobj.data.resourceType == "Unit") { %>
+                  <option value="owner" <%= roleValue == "owner"? "selected" : "" %>>is Unit Owner</option>
+                <% } %>
+              </select>
+              <i class="fa fa-times remove-role"></i>
             </div>
           </div>
         </div>
@@ -115,20 +163,20 @@
 </head>
 <body>
   <div class="container-fluid">
-    <div class="col-md-12">
+    <div class="col-xs-12">
       <form class="form-inline set-auth-form">
         <div class="form-group">
-          <h3>Viewing as user <input type="text" id="auth_user" class="form-control" />
+          <h3>Viewing as user <input type="text" id="auth_user" class="form-control" value="" />
              with groups <input type="text" id="auth_groups" class="form-control" value="everyone" /> 
-             <input type="button" id="auth_set" value="Set">
+             <input type="submit" id="auth_set" class="btn btn-primary" value="Set">
           </h3>
         </div>
       </form>
     </div>
-    <div id="settings_container" class="col-md-4">
+    <div id="settings_container" class="col-xs-4">
       Select an object to view settings
     </div>
-    <div id="tree_view" class="col-md-8">
+    <div id="tree_view" class="col-xs-8">
       <div id="tree_root" class="container-fluid">
         <div class="tree-children">
         </div>

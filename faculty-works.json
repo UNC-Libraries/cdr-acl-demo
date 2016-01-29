@@ -296,5 +296,167 @@
          "title": "Digital Archive of the Douglas L. Rights Collection"
        }
      ]
-     }]
+     },
+     {
+       "resourceType": "Collection",
+       "id": "uuid:bded4944-f033-4015-af0f-3d39595f4d30",
+       "title": "African American Performance Art Archive",
+       "everyone" : "public_full",
+       "children" : [
+         {
+           "resourceType": "Folder",
+           "id": "uuid:3a379f7a-4678-4166-a227-ee5792ccc8c4",
+           "title": "senga_nengudi",
+           "children" : [
+             {
+               "resourceType": "File",
+               "id": "uuid:6b9c07e1-4e91-41ff-b866-a8b144084002",
+               "title": "Some of what I just told you was a lie"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:70bdd366-69e2-4e85-9676-5d13c9b59f44",
+               "title": "Most of what I just told you was a lie"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:79aac518-ba83-41a3-a093-b5489441a441",
+               "title": "Untitled"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:7e56371b-1665-4d12-b8ea-a78228801d22",
+               "title": "Program for  Segues: A Night of Performances"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:8a8215bd-3068-45f2-929d-7042dc46fb14",
+               "title": "An Hourglass"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:e6e80d25-2390-411b-b856-d56e33f32854",
+               "title": "Inside/Outside"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:42dfb9fb-ab9e-4ea4-9972-26af794999dc",
+               "title": "Nuits Noires"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:550dbc7b-8c9b-4ba0-b1c3-854709a39aef",
+               "title": "Current Statement"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:6531fc96-b363-40fe-b200-9a8b82e4e4f8",
+               "title": "Announcement for  Segues: A Night of Performances"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:663e8011-fa8b-4b0b-8f74-4cd4a681423d",
+               "title": "Lilies of the Valley Unite!"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:92c79e5f-37ef-431a-b258-1558cfe4ebd5",
+               "title": "R.S.V.P. X"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:a4a7911d-e47d-4deb-b4f0-3ae4d652c65e",
+               "title": "Artist Statement"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:b253a687-b62b-4beb-90d1-574ce22f4a5b",
+               "title": "Inside/Outside"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:c2d356a4-3fc0-4db2-a2fd-d3ddda0aca14",
+               "title": "Senga 5/2005 Sante Fe Art Institute; Jerome's Shoes"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:cb30b8cf-78c9-4429-b455-441144205d49",
+               "title": "Audrey; Santa Fe Art Institute Workshop; 5/2005"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:28469ec2-49de-4187-894e-3d774e8d7a14",
+               "title": "Future Projects and Exhibits"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:30b62bfd-9c15-4146-964e-8280a3843ac4",
+               "title": "Artist Statement"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:32d5aff3-e138-4323-a101-ea9e17d7895e",
+               "title": "Audrey's Shoes; Santa Fe Art Institute Workshop; 5/2005"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:357d57bb-9363-400b-b4a3-d3b4246d3c4a",
+               "title": "A few of the things I just told you was a lie"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:035b5778-45f7-4200-a746-a8186ff0dac0",
+               "title": "Poster for Carnival: Ritual of Reversal "
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:074fc2c0-d5dc-4b75-aba3-844c0fcafb69",
+               "title": "Invitation"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:15d2c639-f268-483b-9f07-0e9b767bc722",
+               "title": "Alive Performance Poster for performance featuring Senga Nengudi, Maren Hassinger, and Frank Parker"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:21a69f8b-028d-4a67-962b-e88ca16c73e8",
+               "title": "Walk a Mile in my Shoes"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:e215f768-c499-4615-8b98-8965dcf49d9a",
+               "title": "Walk a Mile in my Shoes"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:7f6b93d0-c571-4438-a624-5ab56bbaf703",
+               "title": "Walk a Mile in my Shoes"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:d306d04a-2cd2-4c93-a079-218a22111945",
+               "title": "Walk a Mile in my Shoes"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:58152cb5-eb2b-4a01-8750-12689beed724",
+               "title": "Walk a Mile in my Shoes"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:24b89917-30aa-437f-8173-483e6aef4001",
+               "title": "Walk a Mile in my Shoes"
+             },
+             {
+               "resourceType": "File",
+               "id": "uuid:fe9ed9fc-a219-4df7-96a6-42258db2f103",
+               "title": " Flipflops received from Amsterdam on 6/08/04; worn on 6/15/04, 11:31am"
+             }
+           ]
+         }
+       ]
+     }
+   
+   ]
 }]

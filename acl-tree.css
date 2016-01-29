@@ -1,5 +1,5 @@
 .type-icon {
-  font-size: 50px;
+  font-size: 57px;
   float: left;
   padding-right: 10px;
 }
@@ -22,10 +22,65 @@
   padding: 6px;
 }
 
+.staff-roles .row.inherited {
+  background-color: #eee;
+}
+
+.add-role-entry {
+  background-color: #eef;
+}
+
+.add-role-entry .form-control {
+  height: 30px;
+  padding: 6px;
+}
+
+.add-role-entry .btn {
+  padding: 6px;
+  line-height: 1.07;
+}
+
+.remove-role {
+  cursor: pointer;
+}
+
 .selected-tree-obj {
   background-color: #eef;
 }
 
+.tree-object-data {
+  cursor: pointer;
+}
+
+.tree-object-data .checkbox {
+  margin: 0;
+}
+
+.tree-object-data .label {
+  margin-right: 8px;
+}
+
+.tree-object-data > div {
+  white-space: nowrap;
+}
+
+.access-badge-box {
+  display: inline-block;
+}
+
 .tree-object h4 {
   white-space: nowrap;
+  margin-bottom: 0;
+}
+
+.not-visible {
+  opacity: 0.5;
+}
+
+.not-visible .not-visible {
+  opacity: 1;
+}
+
+#tree_view {
+  overflow-y: auto;
 }
