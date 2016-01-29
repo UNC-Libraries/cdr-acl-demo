@@ -132,7 +132,7 @@ TreeObject.prototype.getApplicableRoles = function() {
   for (var i = 0; i < this.authInfo.groups.length; i++) {
     var groupRole = this.computedAcls.roles[this.authInfo.groups[i]];
     if (groupRole) {
-      roles.push(userRole);
+      roles.push(groupRole);
     }
   }
   
@@ -163,8 +163,8 @@ TreeObject.prototype.getPermissions = function() {
           this.computedAcls.everyone == "public_full"
           || (this.computedAcls.everyone == "authenticated"
           && this.authInfo.groups.indexOf("authenticated") != -1)))) {
-        permissions["Download"] = "access";
-      }
+      permissions["Download"] = "access";
+    }
   }
   
   if (roles.indexOf("describe") != -1) {
@@ -259,10 +259,20 @@ ContainerSettingsForm.prototype.render = function(parentElement) {
   
   this.element.on("click", ".remove-role", function(e) {
     var entry = $(this).closest(".role-entry");
-    var entity = entry.data("name");
+    var agent = entry.data("agent");
     
-    delete self.treeObj.acls.roles[entity];
+    delete self.treeObj.acls.roles[agent];
     entry.remove();
+    
+    self.treeObj.changeAccess();
+    self.treeObj.updateVisibility();
+  });
+  
+  this.element.on("change", "select[name='existingRoleValue']", function(e) {
+    var entry = $(this).closest(".role-entry");
+    var agent = entry.data("agent");
+    
+    self.treeObj.acls.roles[agent] = $(this).val();
     
     self.treeObj.changeAccess();
     self.treeObj.updateVisibility();
@@ -271,18 +281,18 @@ ContainerSettingsForm.prototype.render = function(parentElement) {
   // Add a new role assignment to the select object
   $(".add-role-form", this.element).submit(function(e){
     var role = $("select[name='roleValue']", self.element).val();
-    var entity = $("input[name='entityName']", self.element).val();
+    var agent = $("input[name='agentName']", self.element).val();
     
     if (!self.treeObj.acls.roles) {
       self.treeObj.acls.roles = {};
     }
     
-    if (entity in self.treeObj.computedAcls.roles) {
-      alert(entity + " is already assigned");
+    if (agent in self.treeObj.computedAcls.roles) {
+      alert(agent + " is already assigned");
       return;
     }
-    console.log("Adding to role", entity, role);
-    self.treeObj.acls.roles[entity] = role;
+    console.log("Adding to role", agent, role);
+    self.treeObj.acls.roles[agent] = role;
     
     self.populateRoles();
     
@@ -298,9 +308,9 @@ ContainerSettingsForm.prototype.populateRoles = function() {
   var template = _.template($("#staff-roles-template").html());
   
   var inheritedRoles = {};
-  _.each(this.treeObj.computedAcls.roles, function(role, entity) {
-    if (!self.treeObj.acls.roles || !(entity in self.treeObj.acls.roles)) {
-      inheritedRoles[entity] = role;
+  _.each(this.treeObj.computedAcls.roles, function(role, agent) {
+    if (!self.treeObj.acls.roles || !(agent in self.treeObj.acls.roles)) {
+      inheritedRoles[agent] = role;
     }
   });
   

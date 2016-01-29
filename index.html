@@ -96,7 +96,7 @@
           <% if (canEdit) { %>
             <div class="row add-role-entry">
               <div class="form-group col-xs-12">
-                <input type="text" class="form-control" name="entityName" placeholder="Enter user or group"> 
+                <input type="text" class="form-control" name="agentName" placeholder="Enter user or group"> 
                 <select class="form-control" name="roleValue">
                   <% if (tobj.data.resourceType != "Unit") { %>
                     <option value="discover">can discover</option>
@@ -120,10 +120,10 @@
   
   <script type="text/template" id="staff-roles-template">
     <div>
-      <% _.each(inheritedRoles, function(roleValue, entityName) { %>
+      <% _.each(inheritedRoles, function(roleValue, agentName) { %>
         <div class="row inherited">
           <div class="col-xs-12">
-            <%= entityName %>
+            <%= agentName %>
             <div class="right nowrap">
               <% if (roleValue == "owner") { %>
                 <span class="label label-default">is Unit Owner</span>
@@ -135,10 +135,10 @@
         </div>
       <% }) %>
       
-      <% _.each(tobj.acls.roles, function(roleValue, entityName) { %>
-        <div class="row role-entry" data-name="<%= entityName %>">
+      <% _.each(tobj.acls.roles, function(roleValue, agentName) { %>
+        <div class="row role-entry" data-agent="<%= agentName %>">
           <div class="col-xs-12">
-            <%= entityName %>
+            <%= agentName %>
             <div class="right nowrap">
               <select name="existingRoleValue">
                 <% if (tobj.data.resourceType != "Unit") { %>
