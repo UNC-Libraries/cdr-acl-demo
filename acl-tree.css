@@ -1,7 +1,8 @@
 .type-icon {
-  font-size: 57px;
+  font-size: 50px;
   float: left;
   padding-right: 10px;
+  line-height: 57px;
 }
 
 .nowrap {
@@ -48,8 +49,23 @@
   background-color: #eef;
 }
 
+#tree_view {
+  padding-top: 20px;
+  overflow-y: auto;
+}
+
+.tree-object h4 {
+  white-space: nowrap;
+  margin-bottom: 4px  ;
+}
+
 .tree-object-data {
   cursor: pointer;
+  padding-bottom: 2px;
+}
+
+.tree-object-data h4 {
+  margin-top: 5px;
 }
 
 .tree-object-data .checkbox {
@@ -64,13 +80,21 @@
   white-space: nowrap;
 }
 
+.tree-object-data label {
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.tree-object-data input[type='checkbox'] {
+  vertical-align: -6%;
+}
+
 .access-badge-box {
   display: inline-block;
 }
 
-.tree-object h4 {
-  white-space: nowrap;
-  margin-bottom: 0;
+.tree-children .tree-children {
+  margin-left: 46px;
 }
 
 .not-visible {
@@ -81,6 +105,6 @@
   opacity: 1;
 }
 
-#tree_view {
-  overflow-y: auto;
+#agent_details {
+  display: none;
 }

@@ -215,8 +215,6 @@ TreeObject.prototype.changeAccess = function(inherited) {
     this.computedAcls.private = true;
   }
   
-  console.log(this.data.title, this.computedAcls);
-  
   for (var i = 0; i < this.children.length; i++) {
     this.children[i].changeAccess(this.computedAcls);
   }
@@ -325,31 +323,85 @@ ContainerSettingsForm.prototype.populateRoles = function() {
 
 /*                                        */
 
+function AgentSelectionForm(userTemplates) {
+  this.authInfo = {};
+  this.userTemplates = userTemplates;
+  this.userSelect = $("#agent_template");
+  
+  for (var i = 0; i < userTemplates.length; i++) {
+    this.userSelect.append("<option value='" + i + "'>" + userTemplates[i].label + "</option>");
+  }
+  
+  this.setFromSelectedTemplate(0);
+  this.refreshAuthInfo();
+};
+
+AgentSelectionForm.prototype.constructor = AgentSelectionForm;
+
+AgentSelectionForm.prototype.setFromSelectedTemplate = function(index) {
+  $("#auth_user").val(this.userTemplates[index].user);
+  $("#auth_groups").val(this.userTemplates[index].groups);
+  this.refreshAuthInfo();
+};
+
+AgentSelectionForm.prototype.refreshAuthInfo = function() {
+  this.authInfo.user = $("#auth_user").val();
+  this.authInfo.groups = $("#auth_groups").val().split(" ");
+};
+
+AgentSelectionForm.prototype.initEvents = function(treeRootObj) {
+  var self = this;
+  
+  
+  // Bind changing of the current users credentials
+  $(".set-auth-form").submit(function(e){
+    e.preventDefault()
+    
+    self.refreshAuthInfo();
+    
+    treeRootObj.changeAccess();
+    treeRootObj.updateVisibility();
+  });
+  
+  this.userSelect.change(function(e){
+    self.setFromSelectedTemplate($(this).val());
+    
+    treeRootObj.changeAccess();
+    treeRootObj.updateVisibility();
+  });
+  
+  $("#view_agent_details").click(function(e) {
+    if ($("#agent_details:visible").length > 0) {
+      $(this).text("view details");
+      $("#agent_details").hide();
+    } else {
+      $(this).text("hide details")
+      $("#agent_details").show();
+    }
+  });
+};
+
+
 $(document).ready(function(){
   $.ajax({
     url : "faculty-works.json",
     dataType : "json",
   }).done(function(data){
-    var authInfo = {};
-    function updateUserInfo() {
-      authInfo.user = $("#auth_user").val();
-      authInfo.groups = $("#auth_groups").val().split(" ");
-    }
-    updateUserInfo();
+    var agentSelect = new AgentSelectionForm(userTemplates, treeRootObj);
     
     // Initialize the tree
     var treeRoot = $("#tree_root");
     var treeRootObj = new TreeObject(data[0], {
       childrenContainer : treeRoot.children(".tree-children")
-    }, authInfo);
+    }, agentSelect.authInfo);
     treeRootObj.changeAccess();
     // Render the tree
     treeRootObj.render();
     
     // Adjust height of tree view to fit screen
-    $("#tree_view").height($(window).height() - $(".set-auth-form").height());
+    $("#tree_view").height($(window).height() - $(".set-auth-form").parent().height() - 20);
     $(window).resize(function() {
-      $("#tree_view").height($(window).height() - $(".set-auth-form").height());
+      $("#tree_view").height($(window).height() - $(".set-auth-form").parent().height() - 20);
     });
     
     // Bind change event for toggle if an object is private
@@ -371,15 +423,8 @@ $(document).ready(function(){
     });
     $(".tree-object-data").first().click();
     
-    // Bind changing of the current users credentials
-    $(".set-auth-form").submit(function(e){
-      e.preventDefault()
-      
-      updateUserInfo();
-      
-      treeRootObj.changeAccess();
-      treeRootObj.updateVisibility();
-    });
+    // Initialize bindings for changing user agent info
+    agentSelect.initEvents(treeRootObj);
   })
 });
 
