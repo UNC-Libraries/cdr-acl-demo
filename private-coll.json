@@ -1,0 +1,46 @@
+[{
+  "title" : "Wilson Technical Services",
+  "resourceType" : "Unit",
+  "id" : "uuid:unit",
+  "roles" : {
+   "jdean" : "owner",
+   "wilsontech" : "manage",
+   "rdm" : "describe"
+  },
+  "children" : [{
+    "title" : "20th Centuary Lunar Adventure Stories",
+    "resourceType" : "Collection",
+    "id" : "uuid:8ae56bbc-400e-496d-af4b-3c585e20dba1",
+    "everyone" : null,
+    "private" : true,
+    "roles" : {
+      "moon-tras" : "manage"
+    },
+    "children" : [
+        {
+          "resourceType": "Folder",
+          "id": "uuid:folder1",
+          "title": "Personal Documents",
+          "children" : [
+            {
+              "resourceType": "File",
+              "id": "uuid:file1",
+              "title": "operation_lunar_dirk.doc"
+            },
+            {
+              "private" : true,
+              "resourceType": "File",
+              "id": "uuid:moonsword",
+              "title": "MOONSWORD"
+            }
+          ]
+        },
+        {
+          "resourceType": "File",
+          "id": "uuid:file2",
+          "title": "research.doc"
+        }
+      ]
+    }
+  ]
+}]

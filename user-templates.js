@@ -14,12 +14,17 @@ var userTemplates = [{
   "user" : "vps"
 },
 {
-  "label" : "Master of Description",
+  "label" : "RDM",
   "groups" : "rdm authenticated everyone",
   "user" : "so"
 },
 {
-  "label" : "Supreme Unit Owner for Life",
+  "label" : "Wilson Tech",
+  "groups" : "wilsontech authenticated everyone",
+  "user" : "wilson"
+},
+{
+  "label" : "Supreme Unit Owner JRR",
   "groups" : "cdr authenticated everyone",
   "user" : "jrudder"
 }

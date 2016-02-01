@@ -384,7 +384,7 @@ AgentSelectionForm.prototype.initEvents = function(treeRootObj) {
 
 $(document).ready(function(){
   $.ajax({
-    url : "faculty-works.json",
+    url : "authenticated-access.json",
     dataType : "json",
   }).done(function(data){
     var agentSelect = new AgentSelectionForm(userTemplates, treeRootObj);

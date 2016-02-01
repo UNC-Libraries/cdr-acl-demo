@@ -1,0 +1,74 @@
+[{
+  "title" : "UARMS",
+  "resourceType" : "Unit",
+  "id" : "uuid:unit",
+  "roles" : {
+   "lgiffin" : "owner",
+   "wilsontech" : "manage",
+   "rdm" : "describe"
+  },
+  "children" : [{
+    "title" : "Department of History",
+    "resourceType" : "Collection",
+    "id" : "uuid:collection",
+    "everyone" : "public_full",
+    "roles" : {
+      "authenticated" : "download"
+    },
+    "children" : [
+      {
+        "resourceType": "Folder",
+        "id": "uuid:folder0",
+        "title": "End of Year Party 2006",
+        "children" : [
+          {
+            "resourceType": "File",
+            "id": "uuid:file0",
+            "title": "cake.jpg"
+          },
+          {
+            "private" : true,
+            "resourceType": "File",
+            "id": "uuid:file1",
+            "title": "secret_cake_recipe.doc"
+          }
+        ]
+      },
+      {
+        "resourceType": "Folder",
+        "id": "uuid:folder1",
+        "title": "End of Year Party 2007",
+        "children" : [
+          {
+            "resourceType": "File",
+            "id": "uuid:person1",
+            "title": "staff_talking.jpg"
+          },
+          {
+            "resourceType": "File",
+            "id": "uuid:person2",
+            "title": "man_giving_speech.jpg"
+          },
+          {
+            "resourceType": "Folder",
+            "id": "uuid:folder1",
+            "title": "Footwear",
+            "private" : true,
+            "children" : [
+              {
+                "resourceType": "File",
+                "id": "uuid:sandels",
+                "title": "sandels.jpg"
+              },
+              {
+                "resourceType": "File",
+                "id": "uuid:shoes",
+                "title": "shoes.jpg"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }]
+}]
