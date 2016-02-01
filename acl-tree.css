@@ -49,6 +49,10 @@
   background-color: #eef;
 }
 
+.set-auth-form > h3 {
+  margin-top: 4px;
+}
+
 #tree_view {
   padding-top: 20px;
   overflow-y: auto;

@@ -27,5 +27,10 @@ var userTemplates = [{
   "label" : "Supreme Unit Owner JRR",
   "groups" : "cdr authenticated everyone",
   "user" : "jrudder"
+},
+{
+  "label" : "UARMS Owner",
+  "groups" : "uarms authenticated everyone",
+  "user" : "lgiffin"
 }
 ]

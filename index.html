@@ -163,16 +163,23 @@
 <body>
   <div class="container-fluid">
     <div class="col-xs-12">
+      <span>dataset: <select id="dataset" name="dataset">
+          <option value="authenticated-access.json">UNC only files</option>
+          <option value="private-coll.json">Collection publishing ex.</option>
+          <option value="faculty-works.json">RLA and AAPA collections</option>
+          <option value="rla.json">RLA collection</option>
+        </select>
+      </span>
       <form class="form-inline set-auth-form">
-        <h3>Select whose perspective to view</h3>
         <div class="form-group">
-          <select id="agent_template" class="form-control"></select>
+          Select a perspective
+          <select id="agent_template"></select>
           <a id="view_agent_details">view details</a>
-          <span id="agent_details">
-            <label>User</label> <input type="text" id="auth_user" class="form-control" value="" />
-            <label>Groups</label> <input type="text" id="auth_groups" class="form-control" value="everyone" />
+          <p id="agent_details">
+            <label>User</label> <input type="text" id="auth_user" value="" />
+            <label>Groups</label> <input type="text" id="auth_groups" value="everyone" />
             <input type="submit" id="auth_set" class="btn btn-primary" value="Set">
-          </span>
+          </p>
         </div>
       </form>
     </div>

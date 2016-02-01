@@ -378,13 +378,29 @@ AgentSelectionForm.prototype.initEvents = function(treeRootObj) {
       $(this).text("hide details")
       $("#agent_details").show();
     }
+    resizeTree();
   });
 };
 
+function resizeTree() {
+  $("#tree_view").height($(window).height() - $(".set-auth-form").parent().height() - 20);
+}
 
 $(document).ready(function(){
+  // Retrieve dataset name from GET to determine which tree to load
+  var params = _.object(_.compact(_.map(location.search.slice(1).split('&'), function(item) {  if (item) return item.split('='); })));
+  var dataset;
+  if ("dataset" in params) {
+    dataset = params.dataset;
+    dataset = dataset.split("/").slice(-1)[0];
+    $("#dataset").val(dataset);
+  } else {
+    dataset = "authenticated-access.json";
+  }
+  
+  // Load the tree dataset and initialize the demo
   $.ajax({
-    url : "authenticated-access.json",
+    url : dataset,
     dataType : "json",
   }).done(function(data){
     var agentSelect = new AgentSelectionForm(userTemplates, treeRootObj);
@@ -399,10 +415,8 @@ $(document).ready(function(){
     treeRootObj.render();
     
     // Adjust height of tree view to fit screen
-    $("#tree_view").height($(window).height() - $(".set-auth-form").parent().height() - 20);
-    $(window).resize(function() {
-      $("#tree_view").height($(window).height() - $(".set-auth-form").parent().height() - 20);
-    });
+    resizeTree();
+    $(window).resize(resizeTree);
     
     // Bind change event for toggle if an object is private
     treeRoot.on("click", "input[name='checkPrivate']", function(e) {
@@ -422,6 +436,10 @@ $(document).ready(function(){
       formObj.render(settingsContainer);
     });
     $(".tree-object-data").first().click();
+    
+    $("#dataset").change(function(e) {
+      window.location.assign("?dataset=" + $(this).val());
+    });
     
     // Initialize bindings for changing user agent info
     agentSelect.initEvents(treeRootObj);
