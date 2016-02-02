@@ -42,7 +42,7 @@
         <div class="radio">
           <label>
             <input type="radio" name="accessRadio" value="3" <%= tobj.acls.access == 3? "checked": "" %>>
-            Metadata visible to everyone
+            Metadata only, visible to everyone
           </label>
         </div>
         <div class="radio">
@@ -113,7 +113,7 @@
           <% } else if (tobj.parent.computedAcls.access == 1) { %>
             <span class="label label-primary">UNC only</span>
           <% } else if (tobj.parent.computedAcls.access == 3) { %>
-            <span class="label label-primary">Metadata visible to everyone</span>
+            <span class="label label-primary">Metadata only, visible to everyone</span>
           <% } else { %>
             <span class="label label-primary">Fully accessible to everyone</span>
           <% } %>
@@ -128,15 +128,13 @@
       <div class="radio">
         <label>
           <input type="radio" name="accessRadio" value="1" <%= tobj.acls.access == 1? "checked": "" %>>
-          UNC Only <% if (tobj.computedAcls.access == 0 && tobj.acls.access != 0) { %>
-            (will remain private because of parent)
-          <% } %>
+          UNC Only
         </label>
       </div>
       <div class="radio">
         <label>
           <input type="radio" name="accessRadio" value="0" <%= tobj.acls.access == 0? "checked": "" %>>
-          Private
+          Staff only
         </label>
       </div>
     
@@ -196,33 +194,37 @@
 </head>
 <body>
   <div class="container-fluid">
-    <div class="col-xs-12">
-      <span>dataset: <select id="dataset" name="dataset">
-          <option value="dept-history.json">UNC only files</option>
-          <option value="private-coll.json">Collection publishing ex.</option>
-          <option value="faculty-works.json">RLA and AAPA collections</option>
-          <option value="rla.json">RLA collection</option>
-        </select>
-      </span>
-      <form class="form-inline set-auth-form">
-        <div class="form-group">
-          Select a perspective
-          <select id="agent_template"></select>
-          <a id="view_agent_details">view details</a>
-          <p id="agent_details">
-            <label>User</label> <input type="text" id="auth_user" value="" />
-            <label>Groups</label> <input type="text" id="auth_groups" value="everyone" />
-            <input type="submit" id="auth_set" class="btn btn-primary" value="Set">
-          </p>
-        </div>
-      </form>
+    <div class="row">
+      <div class="col-xs-12">
+        <span>dataset: <select id="dataset" name="dataset">
+            <option value="dept-history.json">UNC only files</option>
+            <option value="private-coll.json">Collection publishing ex.</option>
+            <option value="faculty-works.json">RLA and AAPA collections</option>
+            <option value="rla.json">RLA collection</option>
+          </select>
+        </span>
+        <form class="form-inline set-auth-form">
+          <div class="form-group">
+            Select a perspective
+            <select id="agent_template"></select>
+            <a id="view_agent_details">view details</a>
+            <p id="agent_details">
+              <label>User</label> <input type="text" id="auth_user" value="" />
+              <label>Groups</label> <input type="text" id="auth_groups" value="everyone" />
+              <input type="submit" id="auth_set" class="btn btn-primary" value="Set">
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
-    <div id="settings_container" class="col-xs-4">
-    </div>
-    <div id="tree_view" class="col-xs-8">
-      <h2>Permissions Preview</h2>
-      <div id="tree_root" class="container-fluid">
-        <div class="tree-children">
+    <div class="row">
+      <div id="settings_container" class="col-xs-4">
+      </div>
+      <div id="tree_view" class="col-xs-8">
+        <h2>Permissions Preview</h2>
+        <div id="tree_root" class="container-fluid">
+          <div class="tree-children">
+          </div>
         </div>
       </div>
     </div>

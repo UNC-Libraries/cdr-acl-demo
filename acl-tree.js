@@ -150,7 +150,7 @@ TreeObject.prototype.getPermissions = function() {
   }
   
   if (this.acls.access == 0) {
-    permissions["Private"] = "privacy";
+    permissions["Staff Only"] = "privacy";
   } else if (this.computedAcls.access == 2) {
     permissions["Embargoed"] = "privacy";
   } else if (this.computedAcls.access == 1) {
@@ -421,13 +421,6 @@ $(document).ready(function(){
     // Adjust height of tree view to fit screen
     resizeTree();
     $(window).resize(resizeTree);
-    
-    // Bind change event for toggle if an object is private
-    treeRoot.on("click", "input[name='checkPrivate']", function(e) {
-      var selectedObj = $(this).closest(".tree-object").data("treeObj");
-      var isPrivate = $(this).prop("checked");
-      selectedObj.setPrivate(isPrivate);
-    });
     
     var settingsContainer = $("#settings_container");
     // Bind selection event for collection objects which populates settings form
