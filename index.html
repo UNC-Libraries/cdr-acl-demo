@@ -103,15 +103,15 @@
     
       <h3>Inherited access</h3>
       <% if (tobj.parent.computedAcls.access == 0) { %>
-        <span class="label label-success">Staff only</span>
+        <span class="label label-primary">Staff only</span>
       <% } else if (tobj.parent.computedAcls.access == 2) { %>
-        <span class="label label-success">Embargoed</span>
+        <span class="label label-primary">Embargoed</span>
       <% } else if (tobj.parent.computedAcls.access == 1) { %>
-        <span class="label label-success">UNC only</span>
+        <span class="label label-primary">UNC only</span>
       <% } else if (tobj.parent.computedAcls.access == 3) { %>
-        <span class="label label-success">Metadata visible to everyone</span>
+        <span class="label label-primary">Metadata visible to everyone</span>
       <% } else { %>
-        <span class="label label-success">Fully accessible to everyone</span>
+        <span class="label label-primary">Fully accessible to everyone</span>
       <% } %>
     
       <h3>Access settings</h3>
