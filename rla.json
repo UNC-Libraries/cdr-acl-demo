@@ -11,7 +11,7 @@
      "title" : "Research Laboratories of Archaeology",
      "resourceType" : "Collection",
      "id" : "uuid:8ae56bbc-400e-496d-af4b-3c585e20dba1",
-     "access" : 3,
+     "access" : 4,
      "roles" : {
        "rla" : "manage"
      },

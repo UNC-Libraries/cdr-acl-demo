@@ -5,7 +5,7 @@ function TreeObject(data, parentObj, authInfo) {
   this.authInfo = authInfo;
   
   this.acls = {
-    "access" : this.data.access === undefined? 3 : this.data.access,
+    "access" : this.data.access === undefined? 4 : this.data.access,
     roles : this.data.roles? this.data.roles : {}
   };
   
@@ -151,6 +151,8 @@ TreeObject.prototype.getPermissions = function() {
   
   if (this.acls.access == 0) {
     permissions["Private"] = "privacy";
+  } else if (this.computedAcls.access == 2) {
+    permissions["Embargoed"] = "privacy";
   } else if (this.computedAcls.access == 1) {
     permissions["UNC Only"] = "privacy";
   } else if (this.computedAcls.access == 0) {
@@ -164,7 +166,7 @@ TreeObject.prototype.getPermissions = function() {
     // If user has download or above, add download option
     if ((roles.length > 0 && roles.indexOf("discover") == -1) ||
         // Or if the object is not private and has full access, download time
-        (this.computedAcls.access == 3 
+        (this.computedAcls.access == 4 
           || (this.computedAcls.access == 1
           && this.authInfo.groups.indexOf("authenticated") != -1))) {
       permissions["Download"] = "access";

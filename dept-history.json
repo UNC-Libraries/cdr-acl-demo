@@ -11,7 +11,7 @@
     "title" : "Department of History",
     "resourceType" : "Collection",
     "id" : "uuid:collection",
-    "access" : 3,
+    "access" : 4,
     "roles" : {
       "uarms-viewer" : "download"
     },
