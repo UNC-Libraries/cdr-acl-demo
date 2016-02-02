@@ -34,7 +34,7 @@ TreeObject.prototype.render = function(notFirst) {
   } else if (this.data.resourceType == "File") {
     icon = "file";
   } else if (this.data.resourceType == "Aggregate") {
-    icon = "fa-files-o";
+    icon = "files-o";
   } else if (this.data.resourceType == "Unit") {
     icon = "university";
   }
