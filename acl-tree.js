@@ -5,9 +5,8 @@ function TreeObject(data, parentObj, authInfo) {
   this.authInfo = authInfo;
   
   this.acls = {
-    everyone : this.data.everyone,
-    roles : this.data.roles? this.data.roles : {},
-    "private" : this.data.private,
+    "access" : this.data.access === undefined? 3 : this.data.access,
+    roles : this.data.roles? this.data.roles : {}
   };
   
   this.computedAcls = {};
@@ -82,18 +81,12 @@ TreeObject.prototype.isVisible = function() {
   }
   
   // For the two public settings, as long as the item is not private than it is always visible
-  if (this.computedAcls.everyone == "public_disco"
-      || this.computedAcls.everyone == "public_full") {
-    return !this.computedAcls.private;
+  if (this.computedAcls.access > 1) {
+    return true;
   }
   
-  // If restricted to authenticated, and user is authenticated, then depends on if private
-  if (this.computedAcls.everyone == "authenticated"
-      && this.authInfo.groups.indexOf("authenticated") != -1) {
-    return !this.computedAcls.private;
-  }
-  
-  return false;
+  // check if restricted to unc users and user is authenticated
+  return this.computedAcls.access == 1 && this.authInfo.groups.indexOf("authenticated") != -1;
 };
 
 TreeObject.prototype.updateVisibility = function(shallow) {
@@ -102,18 +95,22 @@ TreeObject.prototype.updateVisibility = function(shallow) {
   this.visibility = this.isVisible();
   if (this.visibility) {
     this.element.removeClass("not-visible");
-    
-    var permissions = this.getPermissions();
-    _.each(permissions, function(permissionType, name) {
-      if (permissionType == "access") {
-        badgeBox.append("<span class='label label-primary'>" + name + "</span>")
-      } else {
-        badgeBox.append("<span class='label label-warning'>" + name + "</span>")
-      }
-    });
   } else {
     this.element.addClass("not-visible");
   }
+    
+  var permissions = this.getPermissions();
+  _.each(permissions, function(permissionType, name) {
+    if (permissionType == "privacy") {
+      badgeBox.append("<span class='label label-primary'>" + name + "</span>");
+    } else if (permissionType == "admin") {
+      badgeBox.append("<span class='label label-warning'>" + name + "</span>");
+    } else if (permissionType == "access") {
+      badgeBox.append("<span class='label label-primary'>" + name + "</span>");
+    } else {
+      badgeBox.append("<span class='label label-default'>" + name + "</span>");
+    }
+  });
   
   if (!shallow) {
     for (var i = 0; i < this.children.length; i++) {
@@ -152,6 +149,14 @@ TreeObject.prototype.getPermissions = function() {
     return permissions;
   }
   
+  if (this.acls.access == 0) {
+    permissions["Private"] = "privacy";
+  } else if (this.computedAcls.access == 1) {
+    permissions["UNC Only"] = "privacy";
+  } else if (this.computedAcls.access == 0) {
+    permissions["Private by Parent"] = "inherited";
+  }
+  
   // Get roles on this object for the current user
   var roles = this.getApplicableRoles();
   // Download only applies to files and aggregates
@@ -159,10 +164,9 @@ TreeObject.prototype.getPermissions = function() {
     // If user has download or above, add download option
     if ((roles.length > 0 && roles.indexOf("discover") == -1) ||
         // Or if the object is not private and has full access, download time
-        (!this.computedAcls.private && (
-          this.computedAcls.everyone == "public_full"
-          || (this.computedAcls.everyone == "authenticated"
-          && this.authInfo.groups.indexOf("authenticated") != -1)))) {
+        (this.computedAcls.access == 3 
+          || (this.computedAcls.access == 1
+          && this.authInfo.groups.indexOf("authenticated") != -1))) {
       permissions["Download"] = "access";
     }
   }
@@ -196,27 +200,28 @@ TreeObject.prototype.getPermissions = function() {
   return permissions;
 };
 
-TreeObject.prototype.setPrivate = function(isPrivate) {
-  this.acls.private = isPrivate;
+TreeObject.prototype.setAccess = function(access) {
+  this.acls.access = access;
   
-  this.changeAccess();
+  this.updateAcls();
   
   this.updateVisibility();
 };
 
-TreeObject.prototype.changeAccess = function(inherited) {
+TreeObject.prototype.updateAcls = function(inherited) {
   if (!inherited) {
     inherited = $.extend({}, this.parent.computedAcls);
   }
   
   this.computedAcls = $.extend(true, {}, this.acls, inherited);
   
-  if (inherited.private || this.acls.private) {
-    this.computedAcls.private = true;
+  // Use the most restrictive access level between this object and its parent
+  if (this.acls.access < inherited.access) {
+    this.computedAcls.access = this.acls.access;
   }
   
   for (var i = 0; i < this.children.length; i++) {
-    this.children[i].changeAccess(this.computedAcls);
+    this.children[i].updateAcls(this.computedAcls);
   }
 };
 
@@ -230,28 +235,25 @@ ContainerSettingsForm.prototype.constructor = ContainerSettingsForm;
 
 ContainerSettingsForm.prototype.render = function(parentElement) {
   var self = this;
-  var template = _.template($("#container_settings").html());
+  var template;
+  if (this.treeObj.data.resourceType == "Unit" || this.treeObj.data.resourceType == "Collection") {
+    template = _.template($("#container_settings").html());
+  } else {
+    template = _.template($("#object_settings").html());
+  }
   
   this.element = $(template({
-    tobj : this.treeObj,
-    canEdit : this.treeObj.data.resourceType == "Collection" || this.treeObj.data.resourceType == "Unit"
+    tobj : this.treeObj
   }));
   parentElement.html(this.element);
   
   this.populateRoles();
   
-  $("input[name='everyoneRadio']:radio", this.element).change(function() {
+  $("input[name='accessRadio']:radio", this.element).change(function() {
     var value = $(this).val();
-    if (value == "private") {
-      self.treeObj.acls.everyone = null;
-    } else {
-      self.treeObj.acls.everyone = $(this).val();
-    }
+    self.treeObj.acls.access = value;
     
-    self.treeObj.setPrivate(value == "private");
-    console.log("Changed everyone setting", self.treeObj.data.everyone);
-    
-    self.treeObj.changeAccess();
+    self.treeObj.updateAcls();
     self.treeObj.updateVisibility();
   });
   
@@ -262,7 +264,7 @@ ContainerSettingsForm.prototype.render = function(parentElement) {
     delete self.treeObj.acls.roles[agent];
     entry.remove();
     
-    self.treeObj.changeAccess();
+    self.treeObj.updateAcls();
     self.treeObj.updateVisibility();
   });
   
@@ -272,7 +274,7 @@ ContainerSettingsForm.prototype.render = function(parentElement) {
     
     self.treeObj.acls.roles[agent] = $(this).val();
     
-    self.treeObj.changeAccess();
+    self.treeObj.updateAcls();
     self.treeObj.updateVisibility();
   });
   
@@ -294,7 +296,7 @@ ContainerSettingsForm.prototype.render = function(parentElement) {
     
     self.populateRoles();
     
-    self.treeObj.changeAccess();
+    self.treeObj.updateAcls();
     self.treeObj.updateVisibility();
     
     e.preventDefault();
@@ -359,14 +361,14 @@ AgentSelectionForm.prototype.initEvents = function(treeRootObj) {
     
     self.refreshAuthInfo();
     
-    treeRootObj.changeAccess();
+    treeRootObj.updateAcls();
     treeRootObj.updateVisibility();
   });
   
   this.userSelect.change(function(e){
     self.setFromSelectedTemplate($(this).val());
     
-    treeRootObj.changeAccess();
+    treeRootObj.updateAcls();
     treeRootObj.updateVisibility();
   });
   
@@ -383,7 +385,7 @@ AgentSelectionForm.prototype.initEvents = function(treeRootObj) {
 };
 
 function resizeTree() {
-  $("#tree_view").height($(window).height() - $(".set-auth-form").parent().height() - 20);
+  $("#tree_view").height($(window).height() - $(".set-auth-form").parent().height());
 }
 
 $(document).ready(function(){
@@ -395,7 +397,7 @@ $(document).ready(function(){
     dataset = dataset.split("/").slice(-1)[0];
     $("#dataset").val(dataset);
   } else {
-    dataset = "authenticated-access.json";
+    dataset = "dept-history.json";
   }
   
   // Load the tree dataset and initialize the demo
@@ -410,7 +412,7 @@ $(document).ready(function(){
     var treeRootObj = new TreeObject(data[0], {
       childrenContainer : treeRoot.children(".tree-children")
     }, agentSelect.authInfo);
-    treeRootObj.changeAccess();
+    treeRootObj.updateAcls();
     // Render the tree
     treeRootObj.render();
     

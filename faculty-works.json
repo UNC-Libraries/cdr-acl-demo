@@ -11,13 +11,13 @@
      "title" : "Research Laboratories of Archaeology",
      "resourceType" : "Collection",
      "id" : "uuid:8ae56bbc-400e-496d-af4b-3c585e20dba1",
-     "everyone" : "public_full",
+     "access" : 3,
      "roles" : {
        "rla" : "manage"
      },
      "children" : [
           {
-         "private" : true,
+         "access" : 0,
          "resourceType": "Folder",
          "id": "uuid:2bf238d0-5a37-40f1-b57c-d08abc4dc8f6",
          "title": "Excavating Occaneechi Town, Web Edition [Digital Files]"
@@ -28,13 +28,13 @@
          "title": "Publications"
        },
        {
-         "private" : true,
+         "access" : 0,
          "resourceType": "Folder",
          "id": "uuid:b50a3c5c-a23f-4256-8244-71c0a7f1656d",
          "title": "Society for American Archaeology Repatriation Archive [website]"
        },
        {
-         "private" : true,
+         "access" : 0,
          "resourceType": "Folder",
          "id": "uuid:e57ee518-0479-448a-90d1-fcbe43b8f33e",
          "title": "Intrigue of the Past: North Carolina's First Peoples"
@@ -95,13 +95,13 @@
          "title": "Town Creek (Mg 3), View to North on Top of TowerGate, Montgomery Co., North Carolina, United States (RLA image 0567.jpg)"
        },
        {
-         "private" : true,
+         "access" : 0,
          "resourceType": "File",
          "id": "uuid:559aea95-c157-4553-9156-afcda284a577",
          "title": "Town Creek (Mg 3), Excavating Burial 68, MontgomeryCo., North Carolina, United States (RLA image 0568.jpg)"
        },
        {
-         "private" : true,
+         "access" : 0,
          "resourceType": "File",
          "id": "uuid:5e83b6cb-ace6-44ed-bf2a-b41ed2a8ccf7",
          "title": "Town Creek (Mg 3), Excavating Burial 68, MontgomeryCo., North Carolina, United States (RLA image 0569.jpg)"
@@ -186,7 +186,7 @@
          "title": "Black and White Photographs"
        },
        {
-         "private" : true,
+         "access" : 0,
          "resourceType": "Folder",
          "id": "uuid:5bb297ee-56e6-4660-a884-dbe12bcfb362",
          "title": "Town Creek Indian Mound",

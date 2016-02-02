@@ -19,11 +19,6 @@
           </div>
           
           <h4><%= tobj.data.title %></h4>
-          <% if (tobj.data.resourceType != "Unit" && tobj.data.resourceType != "Collection") { %>
-            <label>
-              <input type="checkbox" name="checkPrivate" <%= tobj.acls.private? "checked": "" %>> private
-            </label>
-          <% } %>
           <div class="access-badge-box">
           </div>
         </div>
@@ -41,46 +36,31 @@
       <h2>Settings for <%= tobj.data.resourceType %></h2>
       <h3><%= tobj.data.title %></h3>
       <hr/>
-      <% if (tobj.data.resourceType != "Unit" && tobj.data.resourceType != "Collection") { %>
-        <% if (tobj.acls.private) { %>
-          <span class="label label-primary">Marked as Private</span>
-        <% } else if (tobj.computedAcls.private) { %>
-          <span class="label label-default">Private because of parent</span>
-        <% } else { %>
-          <span class="label label-success">Public</span>
-        <% } %>
-        
-        <% if (tobj.visibility) { %>
-          <span class="label label-success">Visible to current user</span>
-        <% } else { %>
-          <span class="label label-success">Hidden from current user</span>
-        <% } %>
-      <% } %>
       
-      <% if (canEdit && tobj.data.resourceType != "Unit") { %>
-        <h3>Access for Public Items</h3>
+      <% if (tobj.data.resourceType != "Unit") { %>
+        <h3>Access settings</h3>
         <div class="radio">
           <label>
-            <input type="radio" name="everyoneRadio" value="public_disco" <%= tobj.acls.everyone == "public_disco"? "checked": "" %>>
-            Public objects are discoverable by everyone
+            <input type="radio" name="everyoneRadio" value="2" <%= tobj.acls.access == 2? "checked": "" %>>
+            Metadata visible to everyone
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="everyoneRadio" value="public_full" <%= tobj.acls.everyone == "public_full"? "checked": "" %>>
-            Public objects are fully accessible by everyone
+            <input type="radio" name="everyoneRadio" value="3" <%= tobj.acls.access == 3? "checked": "" %>>
+            Fully accessible by everyone
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="everyoneRadio" value="authenticated" <%= tobj.acls.everyone == "authenticated"? "checked": "" %>>
-            Public objects are fully accessible by authenticated users
+            <input type="radio" name="everyoneRadio" value="1" <%= tobj.acls.access == 1? "checked": "" %>>
+            Fully accessible by logged in users
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="everyoneRadio" value="private" <%= tobj.acls.private? "checked": "" %>>
-            No public access
+            <input type="radio" name="everyoneRadio" value="0" <%= tobj.acls.access == 0? "checked": "" %>>
+            Staff only
           </label>
         </div>
       <% } %>
@@ -92,26 +72,82 @@
           <div class="staff-roles-list">
           </div>
           
-          <% if (canEdit) { %>
-            <div class="row add-role-entry">
-              <div class="form-group col-xs-12">
-                <input type="text" class="form-control" name="agentName" placeholder="Enter user or group"> 
-                <select class="form-control" name="roleValue">
-                  <% if (tobj.data.resourceType != "Unit") { %>
-                    <option value="discover">can discover</option>
-                    <option value="download">can download</option>
-                  <% } %>
-                  <option value="describe">can describe</option>
-                  <option value="ingest">can ingest</option>
-                  <option value="manage">can manage</option>
-                  <% if (tobj.data.resourceType == "Unit") { %>
-                    <option value="owner">is Unit Owner</option>
-                  <% } %>
-                </select>
-                <input class="btn btn-primary" name="addRoleButton" type="submit" value="Add">
-              </div>
+          <div class="row add-role-entry">
+            <div class="form-group col-xs-12">
+              <input type="text" class="form-control" name="agentName" placeholder="Enter user or group"> 
+              <select class="form-control" name="roleValue">
+                <% if (tobj.data.resourceType != "Unit") { %>
+                  <option value="discover">can discover</option>
+                  <option value="download">can download</option>
+                <% } %>
+                <option value="describe">can describe</option>
+                <option value="ingest">can ingest</option>
+                <option value="manage">can manage</option>
+                <% if (tobj.data.resourceType == "Unit") { %>
+                  <option value="owner">is Unit Owner</option>
+                <% } %>
+              </select>
+              <input class="btn btn-primary" name="addRoleButton" type="submit" value="Add">
             </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </script>
+  
+  <script type="text/template" id="object_settings">
+    <div>
+      <h2>Settings for <%= tobj.data.resourceType %></h2>
+      <h3><%= tobj.data.title %></h3>
+      <hr/>
+    
+      <h3>Inherited access</h3>
+      <% if (tobj.computedAcls.access == 0) { %>
+        <span class="label label-success">Staff only</span>
+      <% } else if (tobj.computedAcls.access == 1) { %>
+        <span class="label label-success">UNC only</span>
+      <% } else if (tobj.computedAcls.access == 2) { %>
+        <span class="label label-success">Metadata visible to everyone</span>
+      <% } else { %>
+        <span class="label label-success">Fully accessible to everyone</span>
+      <% } %>
+    
+      <h3>Access settings</h3>
+      <div class="radio">
+        <label>
+          <input type="radio" name="accessRadio" value="3" <%= tobj.acls.access == 3? "checked": "" %>>
+          From parent <!-- <% if (tobj.computedAcls.access == 0) { %>
+            (currently staff only)
+          <% } else if (tobj.computedAcls.access == 1) { %>
+            (currently UNC only)
+          <% } else if (tobj.computedAcls.access == 2) { %>
+            (currently metadata visible to everyone)
+          <% } else { %>
+            (currently fully accessible by everyone)
+          <% } %> -->
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="accessRadio" value="0" <%= tobj.acls.access == 0? "checked": "" %>>
+          Private
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="accessRadio" value="1" <%= tobj.acls.access == 1? "checked": "" %>>
+          UNC Only <% if (tobj.computedAcls.access == 0 && tobj.acls.access != 0) { %>
+            (will remain private because of parent)
           <% } %>
+        </label>
+      </div>
+    
+      <form class="add-role-form form-inline">
+        <h3>Staff Permissions</h3>
+        
+        <div class="staff-roles container-fluid">
+          <div class="staff-roles-list">
+          </div>
         </div>
       </form>
     </div>
@@ -164,7 +200,7 @@
   <div class="container-fluid">
     <div class="col-xs-12">
       <span>dataset: <select id="dataset" name="dataset">
-          <option value="authenticated-access.json">UNC only files</option>
+          <option value="dept-history.json">UNC only files</option>
           <option value="private-coll.json">Collection publishing ex.</option>
           <option value="faculty-works.json">RLA and AAPA collections</option>
           <option value="rla.json">RLA collection</option>
@@ -186,6 +222,7 @@
     <div id="settings_container" class="col-xs-4">
     </div>
     <div id="tree_view" class="col-xs-8">
+      <h2>Permissions Preview</h2>
       <div id="tree_root" class="container-fluid">
         <div class="tree-children">
         </div>

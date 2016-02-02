@@ -11,9 +11,9 @@
     "title" : "Department of History",
     "resourceType" : "Collection",
     "id" : "uuid:collection",
-    "everyone" : "public_full",
+    "access" : 3,
     "roles" : {
-      "authenticated" : "download"
+      "uarms-viewer" : "download"
     },
     "children" : [
       {
@@ -27,7 +27,7 @@
             "title": "cake.jpg"
           },
           {
-            "private" : true,
+            "access" : 0,
             "resourceType": "File",
             "id": "uuid:file1",
             "title": "secret_cake_recipe.doc"
@@ -53,7 +53,7 @@
             "resourceType": "Folder",
             "id": "uuid:folder1",
             "title": "Footwear",
-            "private" : true,
+            "access" : 0,
             "children" : [
               {
                 "resourceType": "File",
