@@ -55,6 +55,7 @@
 
 #tree_view {
   overflow-y: auto;
+  border-left: 2px dashed rgb(238, 238, 255);
 }
 
 .tree-object h4 {

@@ -116,7 +116,7 @@
       <div class="radio">
         <label>
           <input type="radio" name="accessRadio" value="3" <%= tobj.acls.access == 3? "checked": "" %>>
-          From parent <!-- <% if (tobj.computedAcls.access == 0) { %>
+          Inherited <!-- <% if (tobj.computedAcls.access == 0) { %>
             (currently staff only)
           <% } else if (tobj.computedAcls.access == 1) { %>
             (currently UNC only)
@@ -129,16 +129,22 @@
       </div>
       <div class="radio">
         <label>
-          <input type="radio" name="accessRadio" value="0" <%= tobj.acls.access == 0? "checked": "" %>>
-          Private
-        </label>
-      </div>
-      <div class="radio">
-        <label>
           <input type="radio" name="accessRadio" value="1" <%= tobj.acls.access == 1? "checked": "" %>>
           UNC Only <% if (tobj.computedAcls.access == 0 && tobj.acls.access != 0) { %>
             (will remain private because of parent)
           <% } %>
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="accessRadio" value="0" <%= tobj.acls.access == 0? "checked": "" %>>
+          Embargoed for <select><option>6 months</option><option>1 year</option><option>2 year</option></select>
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="accessRadio" value="0" <%= tobj.acls.access == 0? "checked": "" %>>
+          Private
         </label>
       </div>
     
