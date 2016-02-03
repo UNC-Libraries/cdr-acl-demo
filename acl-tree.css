@@ -119,7 +119,7 @@
 
 .metadata-only {
   padding-top: 10px;
-  border-top: 1px dashed #eee;
+  border-top: 1px solid #e5e5e5;
   display: inline-block;
   margin-top: 2px;
 }
