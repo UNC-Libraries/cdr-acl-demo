@@ -102,13 +102,11 @@ TreeObject.prototype.updateVisibility = function(shallow) {
   var permissions = this.getPermissions();
   _.each(permissions, function(permissionType, name) {
     if (permissionType == "privacy") {
-      badgeBox.append("<span class='label label-primary'>" + name + "</span>");
+      badgeBox.append("<span class='label label-info'>" + name + "</span>");
     } else if (permissionType == "admin") {
       badgeBox.append("<span class='label label-warning'>" + name + "</span>");
     } else if (permissionType == "access") {
       badgeBox.append("<span class='label label-primary'>" + name + "</span>");
-    } else {
-      badgeBox.append("<span class='label label-default'>" + name + "</span>");
     }
   });
   
@@ -151,25 +149,28 @@ TreeObject.prototype.getPermissions = function() {
   
   if (this.acls.access == 0) {
     permissions["Staff Only"] = "privacy";
-  } else if (this.computedAcls.access == 2) {
-    permissions["Embargoed"] = "privacy";
   } else if (this.computedAcls.access == 1) {
     permissions["UNC Only"] = "privacy";
-  } else if (this.computedAcls.access == 0) {
-    permissions["Private by Parent"] = "inherited";
   }
+  
+  if (this.computedAcls.embargo) {
+      permissions["Embargoed"] = "privacy";
+    }
   
   // Get roles on this object for the current user
   var roles = this.getApplicableRoles();
   // Download only applies to files and aggregates
   if (this.data.resourceType == "Aggregate" || this.data.resourceType == "File") {
-    // If user has download or above, add download option
-    if ((roles.length > 0 && roles.indexOf("discover") == -1) ||
-        // Or if the object is not private and has full access, download time
-        (this.computedAcls.access == 4 
-          || (this.computedAcls.access == 1
-          && this.authInfo.groups.indexOf("authenticated") != -1))) {
+    // If user has download  role or above, add download option
+    if (roles.length > 0 && roles.indexOf("discover") == -1) {
       permissions["Download"] = "access";
+    } else if (!this.computedAcls.embargo && !this.computedAcls.metadataOnly) {
+      // If its not embargoed, then determine download based on access setting
+      if (this.computedAcls.access == 4 
+          || (this.computedAcls.access == 1
+            && this.authInfo.groups.indexOf("authenticated") != -1)) {
+        permissions["Download"] = "access";
+      }
     }
   }
   
@@ -276,6 +277,45 @@ ContainerSettingsForm.prototype.render = function(parentElement) {
     
     self.treeObj.acls.roles[agent] = $(this).val();
     
+    self.treeObj.updateAcls();
+    self.treeObj.updateVisibility();
+  });
+  
+  $(".metadata-only input", this.element).change(function(e) {
+    var isChecked = $(this).prop("checked");
+    self.treeObj.acls.metadataOnly = isChecked;
+    self.treeObj.updateAcls();
+    self.treeObj.updateVisibility();
+  });
+  
+  $("select[name='embargo-duration']", this.element).change(function(e) {
+    var value = $(this).val();
+    
+    if (value) {
+      value = value.split(" ");
+      var endDate = moment().add(value[0], value[1]).format("MM/DD/YYYY");
+      $("input[name='embargo-end']", this.element).val(endDate);
+      self.treeObj.acls.embargo = endDate;
+    } else {
+      $("input[name='embargo-end']", this.element).val("");
+      delete self.treeObj.acls.embargo;
+    }
+    
+    self.treeObj.updateAcls();
+    self.treeObj.updateVisibility();
+  });
+  
+  $("input[name='embargo-end']", this.element).change(function(e) {
+    var value = $(this).val();
+    
+    if (value) {
+      self.treeObj.acls.embargo = value;
+      $("select[name='embargo-duration']", this.element).val("until");
+    } else {
+      delete self.treeObj.acls.embargo;
+      $("select[name='embargo-duration']", this.element).val("");
+    }
+     
     self.treeObj.updateAcls();
     self.treeObj.updateVisibility();
   });

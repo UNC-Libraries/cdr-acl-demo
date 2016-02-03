@@ -112,3 +112,14 @@
 #agent_details {
   display: none;
 }
+
+.hidden {
+  display: none;
+}
+
+.metadata-only {
+  padding-top: 10px;
+  border-top: 1px dashed #eee;
+  display: inline-block;
+  margin-top: 2px;
+}

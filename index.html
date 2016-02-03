@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="acl-tree.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>
   <script src="user-templates.js"></script>
   <script src="acl-tree.js"></script>
   <script type="text/template" id="container_template">
@@ -38,29 +39,30 @@
       <hr/>
       
       <% if (tobj.data.resourceType != "Unit") { %>
-        <h3>Access settings</h3>
-        <div class="radio">
-          <label>
-            <input type="radio" name="accessRadio" value="3" <%= tobj.acls.access == 3? "checked": "" %>>
-            Metadata only, visible to everyone
-          </label>
-        </div>
+        <h3>Patron Access</h3>
         <div class="radio">
           <label>
             <input type="radio" name="accessRadio" value="4" <%= tobj.acls.access == 4? "checked": "" %>>
-            Fully accessible by everyone
+            Accessible to everyone
           </label>
         </div>
         <div class="radio">
           <label>
             <input type="radio" name="accessRadio" value="1" <%= tobj.acls.access == 1? "checked": "" %>>
-            Fully accessible by logged in users
+            UNC Only
           </label>
         </div>
         <div class="radio">
           <label>
             <input type="radio" name="accessRadio" value="0" <%= tobj.acls.access == 0? "checked": "" %>>
-            Staff only
+            None (staff only)
+          </label>
+        </div>
+        
+        <div class="checkbox metadata-only">
+          <label>
+            <input type="checkbox" <%= tobj.acls.metadataOnly? "checked" : "" %>>
+            Show patrons metadata only (no downloads)
           </label>
         </div>
       <% } %>
@@ -78,7 +80,7 @@
               <select class="form-control" name="roleValue">
                 <% if (tobj.data.resourceType != "Unit") { %>
                   <option value="discover">can discover</option>
-                  <option value="download">can download</option>
+                  <option value="download">can access</option>
                 <% } %>
                 <option value="describe">can describe</option>
                 <option value="ingest">can ingest</option>
@@ -101,28 +103,23 @@
       <h3><%= tobj.data.title %></h3>
       <hr/>
     
-      <h3>Access settings</h3>
+      <h3>Patron Access</h3>
       <div class="radio">
         <label>
           <input type="radio" name="accessRadio" value="4" <%= tobj.acls.access == 4? "checked": "" %>>
           From parent 
           <% if (tobj.parent.computedAcls.access == 0) { %>
             <span class="label label-primary">Staff only</span>
-          <% } else if (tobj.parent.computedAcls.access == 2) { %>
-            <span class="label label-primary">Embargoed</span>
           <% } else if (tobj.parent.computedAcls.access == 1) { %>
             <span class="label label-primary">UNC only</span>
           <% } else if (tobj.parent.computedAcls.access == 3) { %>
             <span class="label label-primary">Metadata only, visible to everyone</span>
-          <% } else { %>
-            <span class="label label-primary">Fully accessible to everyone</span>
+          <% } else if (tobj.parent.computedAcls.access == 4 && !tobj.parent.computedAcls.embargo) { %>
+            <span class="label label-primary">Accessible to everyone</span>
           <% } %>
-        </label>
-      </div>
-      <div class="radio">
-        <label>
-          <input type="radio" name="accessRadio" value="2" <%= tobj.acls.access == 2? "checked": "" %>>
-          Embargoed for <select><option>6 months</option><option>1 year</option><option>2 year</option></select>
+          <% if (tobj.parent.computedAcls.embargo) { %>
+            <span class="label label-primary">Embargoed</span>
+          <% } %>
         </label>
       </div>
       <div class="radio">
@@ -134,9 +131,23 @@
       <div class="radio">
         <label>
           <input type="radio" name="accessRadio" value="0" <%= tobj.acls.access == 0? "checked": "" %>>
-          Staff only
+          None (staff only)
         </label>
       </div>
+      
+      <h3>Embargo</h3>
+      <form class="add-role-form form-inline">
+        <div class="form-group">
+          <select name="embargo-duration" class="form-control">
+            <option value="">None</option>
+            <option value="6 M">6 months</option>
+            <option value="1 y">1 year</option>
+            <option value="2 y">2 year</option>
+            <option value="until" class="hidden" <%= tobj.acls.embargo? "selected" :"" %>>Until</option>
+          </select>
+          <input name="embargo-end" type="text" name="embargo-date" placeholder="End date" class="form-control" value="<%= tobj.acls.embargo %>"/>
+        </div>
+      </form>
     
       <form class="add-role-form form-inline">
         <h3>Staff Permissions</h3>
