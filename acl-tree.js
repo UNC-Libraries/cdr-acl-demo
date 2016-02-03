@@ -107,6 +107,8 @@ TreeObject.prototype.updateVisibility = function(shallow) {
       badgeBox.append("<span class='label label-warning'>" + name + "</span>");
     } else if (permissionType == "access") {
       badgeBox.append("<span class='label label-primary'>" + name + "</span>");
+    } else if (permissionType == "inherited") {
+      badgeBox.append("<span class='label label-info semi-transparent'>" + name + "</span>");
     }
   });
   
@@ -147,15 +149,27 @@ TreeObject.prototype.getPermissions = function() {
     return permissions;
   }
   
-  if (this.acls.access == 0) {
-    permissions["Staff Only"] = "privacy";
+  if (this.computedAcls.access == 0) {
+    permissions["Staff Only"] = "inherited";
   } else if (this.computedAcls.access == 1) {
-    permissions["UNC Only"] = "privacy";
+    permissions["UNC Only"] = "inherited";
+  }
+  if (this.computedAcls.embargo) {
+    permissions["Embargoed"] = "inherited";
   }
   
-  if (this.computedAcls.embargo) {
-      permissions["Embargoed"] = "privacy";
-    }
+  if (this.acls.access == 0) {
+    permissions["Staff Only"] = "privacy";
+  } else if (this.acls.access == 1) {
+    permissions["UNC Only"] = "privacy";
+  }
+  if (this.acls.embargo) {
+    permissions["Embargoed"] = "privacy";
+  }
+  
+  if (this.acls.metadataOnly) {
+    permissions["Metadata Only"] = "privacy";
+  }
   
   // Get roles on this object for the current user
   var roles = this.getApplicableRoles();

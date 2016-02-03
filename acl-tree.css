@@ -109,6 +109,10 @@
   opacity: 1;
 }
 
+.semi-transparent {
+  opacity: 0.4;
+}
+
 #agent_details {
   display: none;
 }
