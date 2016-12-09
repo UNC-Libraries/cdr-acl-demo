@@ -34,9 +34,9 @@ var userTemplates = [{
   "user" : "lgiffin"
 },
 {
-  "label" : "SOHP Owner",
-  "groups" : "sohp authenticated everyone",
-  "user" : "ljcb"
+  "label" : "SHC Owner",
+  "groups" : "shc authenticated everyone",
+  "user" : "dcbh"
 },
 {
   "label" : "SOHP Observer",
