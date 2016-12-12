@@ -32,5 +32,14 @@ var userTemplates = [{
   "label" : "UARMS Owner",
   "groups" : "uarms authenticated everyone",
   "user" : "lgiffin"
+},
+{
+  "label" : "SHC Owner",
+  "groups" : "shc authenticated everyone",
+  "user" : "dcbh"
+},
+{
+  "label" : "SOHP Observer",
+  "user" : "sohp-observer"
 }
 ]

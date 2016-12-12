@@ -1,0 +1,92 @@
+[{
+  "title" : "Southern Historical Collection",
+  "resourceType" : "Unit",
+  "id" : "uuid:c59291a6-ad7a-4ad4-b89d-e2fe8acac744",
+  "roles" : {
+    "dcbh" : "owner",
+    "wilsontech" : "manage"
+  },
+  "children" : [
+    {
+    "title" : "Southern Oral History Program Interviews",
+    "resourceType" : "Collection",
+    "id" : "uuid:657c5537-4fa3-48a5-9824-12c192128544",
+    "roles" : {
+      "sohp-observer": "download"
+    },
+    "children" : [{
+      "title" : "Interviews",
+      "resourceType" : "Folder",
+      "id" : "uuid:folder0",
+      "access" : 4,
+      "roles" : {
+      
+      },
+      "children" : [
+        {
+          "resourceType": "Folder",
+          "id": "uuid:folder1",
+          "title": "A-0001 Interview with Richard Arrington",
+          "children" : [
+            {
+              "resourceType": "Aggregate",
+              "id": "uuid:5e9d6d4f-0f04-478a-b753-1de8987188be",
+              "title": "04007_A0001_1_1.mp3"
+            },
+            {
+              "resourceType": "Aggregate",
+              "id": "uuid:08303422-544f-4f25-96fe-39b37193ddf0",
+              "title": "A0001_Transcript.pdf"
+            },
+            {
+              "resourceType": "Folder",
+              "id": "uuid:folder2",
+              "title": "A-0001 Administrative",
+              "access": 0,
+              "children" : [
+                {
+                  "resourceType": "Aggregate",
+                  "id": "uuid:8d31121d-db1e-4113-9f58-1321dea791d6",
+                  "title": "A0001_1_1_PM.wav"
+                },
+                {
+                  "resourceType": "Aggregate",
+                  "id": "uuid:28021675-313c-4e64-83cd-27d139e560b6",
+                  "title": "A-0001_release.pdf"
+                },
+                {
+                  "resourceType": "Aggregate",
+                  "id": "uuid:66a39e2d-19f9-4a2e-a165-2fffa2bfb66c",
+                  "title": "A0001_Transcript.txt"
+                }
+              ]
+            },
+            {
+              "resourceType": "Folder",
+              "id": "uuid:folder3",
+              "title": "A-0001 Pictures",
+              "children" : [
+                {
+                  "resourceType": "Aggregate",
+                  "id": "uuid:jpg0",
+                  "title": "01.jpg"
+                },
+                {
+                  "resourceType": "Aggregate",
+                  "id": "uuid:jpg1",
+                  "title": "02.jpg"
+                },
+                {
+                  "resourceType": "Aggregate",
+                  "id": "uuid:jpg2",
+                  "title": "03.jpg"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }]
+  }]
+  }]
+  
